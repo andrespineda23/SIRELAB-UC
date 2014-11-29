@@ -1,7 +1,7 @@
 package com.sirelab.dao;
 
-import com.sirelab.dao.interfacedao.PersonaDAOInterface;
-import com.sirelab.entidades.Persona;
+import com.sirelab.dao.interfacedao.CarreraDAOInterface;
+import com.sirelab.entidades.Carrera;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -14,7 +14,7 @@ import javax.persistence.Query;
  * @author ANDRES PINEDA
  */
 @Stateless
-public class PersonaDAO implements PersonaDAOInterface {
+public class CarreraDAO implements CarreraDAOInterface {
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -23,57 +23,57 @@ public class PersonaDAO implements PersonaDAOInterface {
     private EntityManager em;
 
     @Override
-    public void crearPersona(Persona persona) {
+    public void crearCarrera(Carrera carrera) {
         try {
-            em.persist(persona);
+            em.persist(carrera);
         } catch (Exception e) {
-            System.out.println("Error crearPersona PersonaDAO : " + e.toString());
+            System.out.println("Error crearCarrera CarreraDAO : " + e.toString());
         }
     }
 
     @Override
-    public void editarPersona(Persona persona) {
+    public void editarCarrera(Carrera carrera) {
         try {
-            em.merge(persona);
+            em.merge(carrera);
         } catch (Exception e) {
-            System.out.println("Error editarPersona PersonaDAO : " + e.toString());
+            System.out.println("Error editarCarrera CarreraDAO : " + e.toString());
         }
     }
 
     @Override
-    public void eliminarPersona(Persona persona) {
+    public void eliminarCarrera(Carrera carrera) {
         try {
-            em.remove(em.merge(persona));
+            em.remove(em.merge(carrera));
         } catch (Exception e) {
-            System.out.println("Error eliminarPersona PersonaDAO : " + e.toString());
+            System.out.println("Error eliminarCarrera CarreraDAO : " + e.toString());
         }
     }
 
     @Override
-    public List<Persona> consultarPersonas() {
+    public List<Carrera> consultarCarreras() {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT p FROM Persona p");
+            Query query = em.createQuery("SELECT p FROM Carrera p");
             //query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-            List<Persona> lista = query.getResultList();
+            List<Carrera> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            System.err.println("Error consultarPersonas PersonaDAO : " + e.toString());
+            System.err.println("Error consultarCarreras CarreraDAO : " + e.toString());
             return null;
         }
     }
 
     @Override
-    public Persona buscarPersonaPorID(BigInteger idRegistro) {
+    public Carrera buscarCarreraPorID(BigInteger idRegistro) {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT p FROM Persona p WHERE p.idpersona=:idRegistro");
+            Query query = em.createQuery("SELECT p FROM Carrera p WHERE p.idcarrera=:idRegistro");
             //query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             query.setParameter("idRegistro", idRegistro);
-            Persona registro = (Persona) query.getSingleResult();
+            Carrera registro = (Carrera) query.getSingleResult();
             return registro;
         } catch (Exception e) {
-            System.err.println("Error buscarPersonaPorID PersonaDAO : " + e.toString());
+            System.err.println("Error buscarCarreraPorID CarreraDAO : " + e.toString());
             return null;
         }
     }

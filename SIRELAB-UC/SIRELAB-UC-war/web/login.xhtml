@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="./resources/css/general.css" rel="stylesheet" type="text/css" />
+        <title>SIRELAB - UC</title>
+    </h:head>
+
+    <h:body >
+        <h:form>
+
+            <div id="top"  class="top" style="height: 80px; border-bottom: blue; border-color: darkblue" >
+                <fieldset style="position: absolute; left: 45px; top: 5px; height: 70px; width: 90%; border-radius: 10px; ">
+                    <h:graphicImage value="Imagenes/logo-universidad-central.png" height="90" width="340" style="position: absolute;top: -3px;"  />  
+                    <h:outputText value="#{controllerTemplate.obtenerFechaSistema()}" style="position: absolute; top: 10px; left: 1010px;"/>
+                </fieldset>
+                <ui:insert name="banner">
+                </ui:insert>
+
+                <p:growl id="messages"/>
+
+                <p:menubar id="menubar" style="position: absolute; top: 100px; width: 98%; " styleClass="menubarStyle">
+
+                    <p:submenu label="Información SIRELAB" style="float: right;" >
+                        <p:menuitem value="Iniciar Sesión"  actionListener="#{controllerLogin.dispararDialogoLoginUsuario()}" process="@this"/>
+                        <p:separator />
+                        <p:menuitem value="Registrar Estudiante" icon="ui-icon-circle-plus" />
+                    </p:submenu>
+
+                </p:menubar>
+
+                <p:dialog widgetVar="loginUsuario"  id="loginUsuario" header="Información - SIRELAB"  resizable="false" draggable="false" modal="true" height="150" width="400" style="font-size: 12px" closable="false">  
+
+                    <center><strong><h:outputText value="Ingrese las credenciales del usuario" style="font-size: 14px; color: blue; position: relative; top: 10px" /></strong></center> 
+
+                    <h:outputText value="Usuario: " style="position: absolute; top: 50px; left: 30px;"/>
+                    <p:inputText id="correoLogin"  style="position: absolute; top: 45px; left: 150px; width: 200px">
+                        <p:ajax event="change" process="@this" update="@this"/>
+                    </p:inputText>
+
+                    <h:outputText value="Contraseña: " style="position: absolute; top: 80px; left: 30px;"/>
+                    <p:password id="contrasenaLogin" style="position: absolute; top: 75px; left: 150px; width: 200px">
+                    </p:password>
+
+                    <p:commandLink value="¿Olvido su contraseña?" style="position: absolute; top: 130px; left: 20px"/>
+                    <p:commandButton value="Aceptar" style="position: absolute; top: 120px; left: 220px"  process="@this"/>
+                    <p:commandButton value="Cancelar" style="position: absolute; top: 120px; left: 300px" process="@this" onclick="loginUsuario.hide()"/> 
+
+                </p:dialog>
+            </div>
+
+            <p:panel header="SIRELAB - UC" styleClass="panelFunciones">
+            </p:panel>
+        </h:form>
+    </h:body>
+</html>

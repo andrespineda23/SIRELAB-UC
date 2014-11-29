@@ -1,7 +1,7 @@
 package com.sirelab.dao;
 
-import com.sirelab.dao.interfacedao.PersonaDAOInterface;
-import com.sirelab.entidades.Persona;
+import com.sirelab.dao.interfacedao.DocenteDAOInterface;
+import com.sirelab.entidades.Docente;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -14,7 +14,7 @@ import javax.persistence.Query;
  * @author ANDRES PINEDA
  */
 @Stateless
-public class PersonaDAO implements PersonaDAOInterface {
+public class DocenteDAO implements DocenteDAOInterface {
 
     /**
      * Atributo EntityManager. Representa la comunicación con la base de datos
@@ -23,57 +23,57 @@ public class PersonaDAO implements PersonaDAOInterface {
     private EntityManager em;
 
     @Override
-    public void crearPersona(Persona persona) {
+    public void crearDocente(Docente docente) {
         try {
-            em.persist(persona);
+            em.persist(docente);
         } catch (Exception e) {
-            System.out.println("Error crearPersona PersonaDAO : " + e.toString());
+            System.out.println("Error crearDocente DocenteDAO : " + e.toString());
         }
     }
 
     @Override
-    public void editarPersona(Persona persona) {
+    public void editarDocente(Docente docente) {
         try {
-            em.merge(persona);
+            em.merge(docente);
         } catch (Exception e) {
-            System.out.println("Error editarPersona PersonaDAO : " + e.toString());
+            System.out.println("Error editarDocente DocenteDAO : " + e.toString());
         }
     }
 
     @Override
-    public void eliminarPersona(Persona persona) {
+    public void eliminarDocente(Docente docente) {
         try {
-            em.remove(em.merge(persona));
+            em.remove(em.merge(docente));
         } catch (Exception e) {
-            System.out.println("Error eliminarPersona PersonaDAO : " + e.toString());
+            System.out.println("Error eliminarDocente DocenteDAO : " + e.toString());
         }
     }
 
     @Override
-    public List<Persona> consultarPersonas() {
+    public List<Docente> consultarDocentes() {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT p FROM Persona p");
+            Query query = em.createQuery("SELECT p FROM Docente p");
             //query.setHint("javax.persistence.cache.storeMode", "REFRESH");
-            List<Persona> lista = query.getResultList();
+            List<Docente> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            System.err.println("Error consultarPersonas PersonaDAO : " + e.toString());
+            System.err.println("Error consultarDocentes DocenteDAO : " + e.toString());
             return null;
         }
     }
 
     @Override
-    public Persona buscarPersonaPorID(BigInteger idRegistro) {
+    public Docente buscarDocentePorID(BigInteger idRegistro) {
         try {
             em.clear();
-            Query query = em.createQuery("SELECT p FROM Persona p WHERE p.idpersona=:idRegistro");
+            Query query = em.createQuery("SELECT p FROM Docente p WHERE p.iddocente=:idRegistro");
             //query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             query.setParameter("idRegistro", idRegistro);
-            Persona registro = (Persona) query.getSingleResult();
+            Docente registro = (Docente) query.getSingleResult();
             return registro;
         } catch (Exception e) {
-            System.err.println("Error buscarPersonaPorID PersonaDAO : " + e.toString());
+            System.err.println("Error buscarDocentePorID DocenteDAO : " + e.toString());
             return null;
         }
     }
