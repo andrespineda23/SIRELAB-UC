@@ -25,4 +25,5 @@ public interface PlanEstudiosDAOInterface {
 
     public PlanEstudios buscarPlanEstudiosPorID(BigInteger idRegistro);
 
+    public List<PlanEstudios> consultarPlanesEstudiosPorCarrera(BigInteger idCarrera);
 }

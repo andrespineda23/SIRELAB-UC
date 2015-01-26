@@ -17,7 +17,7 @@
 
             <p:idleMonitor onactive="sessionTimeOutDialog.show();" timeout="600000" />
             <p:dialog header="Sesion Caducada" widgetVar="sessionTimeOutDialog"
-                      modal="true" closable="false" width="400" visible="false">
+                      modal="true" closable="false"  width="370" visible="false" resizable="false">
                 <h:outputText value="La sesion ha caducado, por favor, pulse sobre el siguiente boton  para volver a acceder a la aplicacion" />
                 <p:commandButton id="confirmBackToLogin" action="#{controllerTemplate.cerrarSession()}" value="Volver a acceder a la Aplicación" />
             </p:dialog>
@@ -25,7 +25,7 @@
             <div id="top"  class="top" style="height: 80px; border-bottom: blue; border-color: darkblue" >
                 <fieldset style="position: absolute; left: 45px; top: 5px; height: 70px; width: 90%; border-radius: 10px; ">
                     <h:graphicImage value="Imagenes/logo-universidad-central.png" height="90" width="340" style="position: absolute; top: -3px;"  />  
-
+                    <h:graphicImage value="Imagenes/colombia.jpg" height="13" width="21" style="position: absolute; top: 11px; left: 980px"  />  
                     <h:outputText value="#{controllerTemplate.obtenerFechaSistema()}" style="position: absolute; top: 10px; left: 1010px"/>
                 </fieldset>
                 <ui:insert name="banner">
@@ -34,54 +34,11 @@
                 <p:growl id="messages"/>
 
                 <p:menubar id="menubar" style="position: absolute; top: 100px; width: 98%; " styleClass="menubarStyle">
-                    <p:submenu label="Usuarios" >
-                        <p:submenu label="Administrar"  >
-                            <p:menuitem value="Docentes"  />
-                            <p:menuitem value="Estudiantes"  />
-                            <p:menuitem value="Personal Externo"  />
-                        </p:submenu>
-                        <p:separator />
-                        <p:menuitem value="Carga Masiva Estudiantes" />
-                        <p:separator />
-                        <p:menuitem value="Crear Estudiante Extemporáneo"  />
-                    </p:submenu>
-
-                    <p:submenu label="Periodos Academicos" >
-                        <p:menuitem value="Crear Periodo Academico"  />
-                        <p:separator />
-                        <p:menuitem value="Ajustar Calendario Academico"   />
-                        <p:separator />
-                        <p:menuitem value="Carga Reservas Asignatura"   />
-                    </p:submenu>
-
-                    <p:submenu label="Planta Fisica y Elementos" >
-                        <p:menuitem value="Administrar Sedes" />
-                        <p:separator />
-                        <p:menuitem value="Administrar Edificios" />
-                        <p:separator />
-                        <p:menuitem value="Administrar Laboratorio" />
-                        <p:separator />
-                        <p:menuitem value="Administrar Salas Laboratorio" />
-                        <p:separator />
-                        <p:menuitem value="Administrar Equipos Elementos" />
-                    </p:submenu>
-
-                    <p:submenu label="Estructura Universidad" >
-                        <p:menuitem value="Administrar Departamento" />
-                        <p:separator />
-                        <p:menuitem value="Administrar Carreras" />
-                        <p:separator />
-                        <p:menuitem value="Administrar Facultades" />
-                        <p:separator />
-                        <p:menuitem value="Administrar Asignatura" />
-                    </p:submenu>
-
-                    <p:submenu label="Información Usuario" style="float: right;" >
-                        <p:menuitem value="Información Personal"  />
+                    <p:submenu label="Opciones del Sistema" style="float: right;" >
+                        <p:menuitem value="Info. Usuario"  />
                         <p:separator />
                         <p:menuitem value="Cerrar Sesión" actionListener="#{controllerTemplate.cerrarSession()}" />
                     </p:submenu>
-
                 </p:menubar>
             </div>
             <div>

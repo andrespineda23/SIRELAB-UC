@@ -54,11 +54,11 @@ public class UsuarioDAO implements UsuarioDAOInterface {
         try {
             em.clear();
             Query query = em.createQuery("SELECT p FROM Usuario p");
-            //query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<Usuario> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            System.err.println("Error consultarUsuarios UsuarioDAO : " + e.toString());
+            System.out.println("Error consultarUsuarios UsuarioDAO : " + e.toString());
             return null;
         }
     }
@@ -68,12 +68,32 @@ public class UsuarioDAO implements UsuarioDAOInterface {
         try {
             em.clear();
             Query query = em.createQuery("SELECT p FROM Usuario p WHERE p.idusuario=:idRegistro");
-            //query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             query.setParameter("idRegistro", idRegistro);
             Usuario registro = (Usuario) query.getSingleResult();
             return registro;
         } catch (Exception e) {
-            System.err.println("Error buscarUsuarioPorID UsuarioDAO : " + e.toString());
+            System.out.println("Error buscarUsuarioPorID UsuarioDAO : " + e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public Usuario obtenerUltimoUsuarioRegistrado() {
+        try {
+            em.clear();
+            Query query = em.createQuery("SELECT p FROM Usuario p");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            List<Usuario> registros = query.getResultList();
+            if (registros != null) {
+                int tam = registros.size();
+                Usuario ultimoRegistro = registros.get(tam - 1);
+                return ultimoRegistro;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("Error obtenerUltimoUsuarioRegistrado UsuarioDAO : " + e.toString());
             return null;
         }
     }

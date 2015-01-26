@@ -54,7 +54,7 @@ public class PlanEstudiosDAO implements PlanEstudiosDAOInterface {
         try {
             em.clear();
             Query query = em.createQuery("SELECT p FROM PlanEstudios p");
-            //query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<PlanEstudios> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
@@ -68,12 +68,27 @@ public class PlanEstudiosDAO implements PlanEstudiosDAOInterface {
         try {
             em.clear();
             Query query = em.createQuery("SELECT p FROM PlanEstudios p WHERE p.idplanestudios=:idRegistro");
-            //query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             query.setParameter("idRegistro", idRegistro);
             PlanEstudios registro = (PlanEstudios) query.getSingleResult();
             return registro;
         } catch (Exception e) {
             System.err.println("Error buscarPlanEstudiosPorID PlanEstudiosDAO : " + e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public List<PlanEstudios> consultarPlanesEstudiosPorCarrera(BigInteger idCarrera) {
+        try {
+            em.clear();
+            Query query = em.createQuery("SELECT p FROM PlanEstudios p WHERE p.carrera.idcarrera=:idCarrera");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            query.setParameter("idCarrera", idCarrera);
+            List<PlanEstudios> lista = query.getResultList();
+            return lista;
+        } catch (Exception e) {
+            System.err.println("Error consultarPlanesEstudiosPorCarrera PlanEstudiosDAO : " + e.toString());
             return null;
         }
     }

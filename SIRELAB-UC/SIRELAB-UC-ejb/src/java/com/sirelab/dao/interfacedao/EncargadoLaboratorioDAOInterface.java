@@ -25,4 +25,5 @@ public interface EncargadoLaboratorioDAOInterface {
 
     public EncargadoLaboratorio buscarEncargadoLaboratorioPorID(BigInteger idRegistro);
 
+    public EncargadoLaboratorio buscarEncargadoLaboratorioPorIDPersona(BigInteger idPersona);
 }

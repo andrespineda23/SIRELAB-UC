@@ -54,11 +54,11 @@ public class PersonaDAO implements PersonaDAOInterface {
         try {
             em.clear();
             Query query = em.createQuery("SELECT p FROM Persona p");
-            //query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<Persona> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            System.err.println("Error consultarPersonas PersonaDAO : " + e.toString());
+            System.out.println("Error consultarPersonas PersonaDAO : " + e.toString());
             return null;
         }
     }
@@ -68,12 +68,64 @@ public class PersonaDAO implements PersonaDAOInterface {
         try {
             em.clear();
             Query query = em.createQuery("SELECT p FROM Persona p WHERE p.idpersona=:idRegistro");
-            //query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             query.setParameter("idRegistro", idRegistro);
             Persona registro = (Persona) query.getSingleResult();
             return registro;
         } catch (Exception e) {
-            System.err.println("Error buscarPersonaPorID PersonaDAO : " + e.toString());
+            System.out.println("Error buscarPersonaPorID PersonaDAO : " + e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public Persona obtenerUltimaPersonaRegistrada() {
+        try {
+            em.clear();
+            Query query = em.createQuery("SELECT p FROM Persona p");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            List<Persona> registros = query.getResultList();
+            if (registros != null) {
+                int tam = registros.size();
+                Persona ultimoRegistro = registros.get(tam - 1);
+                return ultimoRegistro;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("Error obtenerUltimaPersonaRegistrada PersonaDAO : " + e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public Persona buscarPersonaPorCorreoYNumeroIdentificacion(String correo, String identificacion) {
+        try {
+            em.clear();
+            Query query = em.createQuery("SELECT p FROM Persona p WHERE p.emailpersona=:correo AND p.identificacionpersona=:identificacion");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            query.setParameter("correo", correo);
+            query.setParameter("identificacion", identificacion);
+            Persona registro = (Persona) query.getSingleResult();
+            return registro;
+        } catch (Exception e) {
+            System.out.println("Error buscarPersonaPorID PersonaDAO : " + e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public Persona obtenerPersonaLoginUserPassword(String usuario, String password) {
+        try {
+            em.clear();
+            Query query = em.createQuery("SELECT p FROM Persona p WHERE p.usuario.nombreusuario=:usuario AND p.usuario.passwordusuario=:password");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            query.setParameter("usuario", usuario);
+            query.setParameter("password", password);
+            Persona registro = (Persona) query.getSingleResult();
+            return registro;
+        } catch (Exception e) {
+            System.out.println("Error obtenerPersonaLoginUserPassword PersonaDAO : " + e.toString());
             return null;
         }
     }

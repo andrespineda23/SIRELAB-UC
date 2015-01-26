@@ -54,11 +54,11 @@ public class DocenteDAO implements DocenteDAOInterface {
         try {
             em.clear();
             Query query = em.createQuery("SELECT p FROM Docente p");
-            //query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<Docente> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            System.err.println("Error consultarDocentes DocenteDAO : " + e.toString());
+            System.out.println("Error consultarDocentes DocenteDAO : " + e.toString());
             return null;
         }
     }
@@ -68,12 +68,27 @@ public class DocenteDAO implements DocenteDAOInterface {
         try {
             em.clear();
             Query query = em.createQuery("SELECT p FROM Docente p WHERE p.iddocente=:idRegistro");
-            //query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             query.setParameter("idRegistro", idRegistro);
             Docente registro = (Docente) query.getSingleResult();
             return registro;
         } catch (Exception e) {
-            System.err.println("Error buscarDocentePorID DocenteDAO : " + e.toString());
+            System.out.println("Error buscarDocentePorID DocenteDAO : " + e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public Docente buscarDocentePorIDPersona(BigInteger idPersona) {
+        try {
+            em.clear();
+            Query query = em.createQuery("SELECT p FROM Docente p WHERE p.persona.idpersona=:idPersona");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            query.setParameter("idPersona", idPersona);
+            Docente registro = (Docente) query.getSingleResult();
+            return registro;
+        } catch (Exception e) {
+            System.out.println("Error buscarDocentePorIDPersona DocenteDAO : " + e.toString());
             return null;
         }
     }

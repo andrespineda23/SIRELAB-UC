@@ -19,4 +19,10 @@ public interface PersonaDAOInterface {
     public List<Persona> consultarPersonas();
 
     public Persona buscarPersonaPorID(BigInteger idRegistro);
+
+    public Persona obtenerUltimaPersonaRegistrada();
+
+    public Persona buscarPersonaPorCorreoYNumeroIdentificacion(String correo, String identificacion);
+
+    public Persona obtenerPersonaLoginUserPassword(String usuario, String password);
 }

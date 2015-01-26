@@ -54,11 +54,11 @@ public class EncargadoLaboratorioDAO implements EncargadoLaboratorioDAOInterface
         try {
             em.clear();
             Query query = em.createQuery("SELECT p FROM EncargadoLaboratorio p");
-            //query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<EncargadoLaboratorio> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            System.err.println("Error consultarEncargadoLaboratorios EncargadoLaboratorioDAO : " + e.toString());
+            System.out.println("Error consultarEncargadoLaboratorios EncargadoLaboratorioDAO : " + e.toString());
             return null;
         }
     }
@@ -68,12 +68,27 @@ public class EncargadoLaboratorioDAO implements EncargadoLaboratorioDAOInterface
         try {
             em.clear();
             Query query = em.createQuery("SELECT p FROM EncargadoLaboratorio p WHERE p.idencargadolaboratorio=:idRegistro");
-            //query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             query.setParameter("idRegistro", idRegistro);
             EncargadoLaboratorio registro = (EncargadoLaboratorio) query.getSingleResult();
             return registro;
         } catch (Exception e) {
-            System.err.println("Error buscarEncargadoLaboratorioPorID EncargadoLaboratorioDAO : " + e.toString());
+            System.out.println("Error buscarEncargadoLaboratorioPorID EncargadoLaboratorioDAO : " + e.toString());
+            return null;
+        }
+    }
+    
+    @Override
+    public EncargadoLaboratorio buscarEncargadoLaboratorioPorIDPersona(BigInteger idPersona) {
+        try {
+            em.clear();
+            Query query = em.createQuery("SELECT p FROM EncargadoLaboratorio p WHERE p.persona.idpersona=:idPersona");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            query.setParameter("idPersona", idPersona);
+            EncargadoLaboratorio registro = (EncargadoLaboratorio) query.getSingleResult();
+            return registro;
+        } catch (Exception e) {
+            System.out.println("Error buscarEncargadoLaboratorioPorIDPersona EncargadoLaboratorioDAO : " + e.toString());
             return null;
         }
     }

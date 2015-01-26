@@ -20,4 +20,6 @@ public interface CarreraDAOInterface {
 
     public Carrera buscarCarreraPorID(BigInteger idRegistro);
 
+    public List<Carrera> consultarCarrerasPorDepartamento(BigInteger idDepartamento);
+
 }

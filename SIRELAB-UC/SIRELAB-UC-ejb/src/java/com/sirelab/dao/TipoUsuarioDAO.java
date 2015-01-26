@@ -54,7 +54,7 @@ public class TipoUsuarioDAO implements TipoUsuarioDAOInterface {
         try {
             em.clear();
             Query query = em.createQuery("SELECT p FROM TipoUsuario p");
-            //query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<TipoUsuario> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
@@ -62,18 +62,33 @@ public class TipoUsuarioDAO implements TipoUsuarioDAOInterface {
             return null;
         }
     }
-    
+
     @Override
     public TipoUsuario buscarTipoUsuarioPorID(BigInteger idRegistro) {
         try {
             em.clear();
             Query query = em.createQuery("SELECT p FROM TipoUsuario p WHERE p.idtipousuario=:idRegistro");
-            //query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             query.setParameter("idRegistro", idRegistro);
             TipoUsuario registro = (TipoUsuario) query.getSingleResult();
             return registro;
         } catch (Exception e) {
-            System.err.println("Error buscarTipoUsuarioPorID TipoUsuarioDAO : " + e.toString());
+            System.out.println("Error buscarTipoUsuarioPorID TipoUsuarioDAO : " + e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public TipoUsuario buscarTipoUsuarioPorNombre(String nombreTipoUsuario) {
+        try {
+            em.clear();
+            Query query = em.createQuery("SELECT p FROM TipoUsuario p WHERE p.nombretipousuario=:nombreTipoUsuario");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            query.setParameter("nombreTipoUsuario", nombreTipoUsuario);
+            TipoUsuario registro = (TipoUsuario) query.getSingleResult();
+            return registro;
+        } catch (Exception e) {
+            System.out.println("Error buscarTipoUsuarioPorNombre TipoUsuarioDAO : " + e.toString());
             return null;
         }
     }

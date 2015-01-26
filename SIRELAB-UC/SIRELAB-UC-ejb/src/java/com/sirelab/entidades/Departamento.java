@@ -38,6 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Departamento.findByIddepartamento", query = "SELECT d FROM Departamento d WHERE d.iddepartamento = :iddepartamento"),
     @NamedQuery(name = "Departamento.findByNombredepartamento", query = "SELECT d FROM Departamento d WHERE d.nombredepartamento = :nombredepartamento")})
 public class Departamento implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -80,6 +81,9 @@ public class Departamento implements Serializable {
     }
 
     public String getNombredepartamento() {
+        if (nombredepartamento != null && !nombredepartamento.isEmpty()) {
+            nombredepartamento = nombredepartamento.toUpperCase();
+        }
         return nombredepartamento;
     }
 
@@ -146,5 +150,5 @@ public class Departamento implements Serializable {
     public String toString() {
         return "com.sirelab.entidades.Departamento[ iddepartamento=" + iddepartamento + " ]";
     }
-    
+
 }

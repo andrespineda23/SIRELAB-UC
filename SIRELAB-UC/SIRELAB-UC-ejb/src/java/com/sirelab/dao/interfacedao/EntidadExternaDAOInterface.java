@@ -24,4 +24,6 @@ public interface EntidadExternaDAOInterface {
     public List<EntidadExterna> consultarEntidadesExternas();
 
     public EntidadExterna buscarEntidadExternaPorID(BigInteger idRegistro);
+
+    public EntidadExterna buscarEntidadExternaPorIDPersona(BigInteger idPersona);
 }

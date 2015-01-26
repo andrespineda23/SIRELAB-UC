@@ -19,5 +19,7 @@ public interface DocenteDAOInterface {
     public List<Docente> consultarDocentes();
 
     public Docente buscarDocentePorID(BigInteger idRegistro);
+    
+    public Docente buscarDocentePorIDPersona(BigInteger idPersona);
 
 }

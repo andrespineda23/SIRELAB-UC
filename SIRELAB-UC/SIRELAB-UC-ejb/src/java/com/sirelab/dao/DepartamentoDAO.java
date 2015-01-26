@@ -54,7 +54,7 @@ public class DepartamentoDAO implements DepartamentoDAOInterface {
         try {
             em.clear();
             Query query = em.createQuery("SELECT p FROM Departamento p");
-            //query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<Departamento> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
@@ -68,7 +68,7 @@ public class DepartamentoDAO implements DepartamentoDAOInterface {
         try {
             em.clear();
             Query query = em.createQuery("SELECT p FROM Departamento p WHERE p.iddepartamento=:idRegistro");
-            //query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             query.setParameter("idRegistro", idRegistro);
             Departamento registro = (Departamento) query.getSingleResult();
             return registro;

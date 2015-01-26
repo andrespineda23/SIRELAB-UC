@@ -24,4 +24,6 @@ public interface UsuarioDAOInterface {
     public List<Usuario> consultarUsuarios();
 
     public Usuario buscarUsuarioPorID(BigInteger idRegistro);
+
+    public Usuario obtenerUltimoUsuarioRegistrado();
 }

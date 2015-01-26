@@ -54,11 +54,11 @@ public class EntidadExternaDAO implements EntidadExternaDAOInterface {
         try {
             em.clear();
             Query query = em.createQuery("SELECT p FROM EntidadExterna p");
-            //query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<EntidadExterna> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            System.err.println("Error consultarEntidadExternas EntidadExternaDAO : " + e.toString());
+            System.out.println("Error consultarEntidadExternas EntidadExternaDAO : " + e.toString());
             return null;
         }
     }
@@ -68,12 +68,27 @@ public class EntidadExternaDAO implements EntidadExternaDAOInterface {
         try {
             em.clear();
             Query query = em.createQuery("SELECT p FROM EntidadExterna p WHERE p.identidadexterna=:idRegistro");
-            //query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             query.setParameter("idRegistro", idRegistro);
             EntidadExterna registro = (EntidadExterna) query.getSingleResult();
             return registro;
         } catch (Exception e) {
-            System.err.println("Error buscarEntidadExternaPorID EntidadExternaDAO : " + e.toString());
+            System.out.println("Error buscarEntidadExternaPorID EntidadExternaDAO : " + e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public EntidadExterna buscarEntidadExternaPorIDPersona(BigInteger idPersona) {
+        try {
+            em.clear();
+            Query query = em.createQuery("SELECT p FROM EntidadExterna p WHERE p.persona.idpersona=:idPersona");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            query.setParameter("idPersona", idPersona);
+            EntidadExterna registro = (EntidadExterna) query.getSingleResult();
+            return registro;
+        } catch (Exception e) {
+            System.out.println("Error buscarEntidadExternaPorIDPersona EntidadExternaDAO : " + e.toString());
             return null;
         }
     }

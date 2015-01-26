@@ -25,4 +25,6 @@ public interface TipoUsuarioDAOInterface {
 
     public TipoUsuario buscarTipoUsuarioPorID(BigInteger idRegistro);
 
+    public TipoUsuario buscarTipoUsuarioPorNombre(String nombreTipoUsuario);
+
 }

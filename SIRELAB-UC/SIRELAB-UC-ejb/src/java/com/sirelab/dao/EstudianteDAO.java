@@ -54,11 +54,11 @@ public class EstudianteDAO implements EstudianteDAOInterface {
         try {
             em.clear();
             Query query = em.createQuery("SELECT p FROM Estudiante p");
-            //query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             List<Estudiante> lista = query.getResultList();
             return lista;
         } catch (Exception e) {
-            System.err.println("Error consultarEstudiantes EstudianteDAO : " + e.toString());
+            System.out.println("Error consultarEstudiantes EstudianteDAO : " + e.toString());
             return null;
         }
     }
@@ -68,12 +68,43 @@ public class EstudianteDAO implements EstudianteDAOInterface {
         try {
             em.clear();
             Query query = em.createQuery("SELECT p FROM Estudiante p WHERE p.idestudiante=:idRegistro");
-            //query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
             query.setParameter("idRegistro", idRegistro);
             Estudiante registro = (Estudiante) query.getSingleResult();
             return registro;
         } catch (Exception e) {
-            System.err.println("Error buscarEstudiantePorID EstudianteDAO : " + e.toString());
+            System.out.println("Error buscarEstudiantePorID EstudianteDAO : " + e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public Estudiante buscarEstudiantePorDocumentoYCorreo(String correo, String documento) {
+        try {
+            em.clear();
+            Query query = em.createQuery("SELECT p FROM Estudiante p WHERE p.persona.emailpersona=:correo AND p.persona.identificacionpersona=:documento");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            query.setParameter("correo", correo);
+            query.setParameter("documento", documento);
+            Estudiante registro = (Estudiante) query.getSingleResult();
+            return registro;
+        } catch (Exception e) {
+            System.out.println("Error buscarEstudiantePorDocumentoYCorreo EstudianteDAO : " + e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public Estudiante buscarEstudiantePorIDPersona(BigInteger idPersona) {
+        try {
+            em.clear();
+            Query query = em.createQuery("SELECT p FROM Estudiante p WHERE p.persona.idpersona=:idPersona");
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH");
+            query.setParameter("idPersona", idPersona);
+            Estudiante registro = (Estudiante) query.getSingleResult();
+            return registro;
+        } catch (Exception e) {
+            System.out.println("Error buscarEstudiantePorIDPersona EstudianteDAO : " + e.toString());
             return null;
         }
     }
